@@ -2,32 +2,19 @@ import heapq
 
 
 def calculate(cables):
-    # Create a min-heap from the list of cables
     heapq.heapify(cables)
-    costs = []
+    total_cost = 0
 
-    # While there is more than one element in the heap
     while len(cables) > 1:
-        # Pop the two smallest cables
-        cable1 = heapq.heappop(cables)
-        cable2 = heapq.heappop(cables)
-        # Total cost of connecting the two cables
-        total = cable1 + cable2
-        # Append the connection cost to the costs list
-        costs.append(total)
-        # Push the new cable back into the heap
-        heapq.heappush(cables, total)
+        cost = heapq.heappop(cables) + heapq.heappop(cables)
+        total_cost += cost
+        heapq.heappush(cables, cost)
 
-    return costs
+    return total_cost
 
 
 if __name__ == "__main__":
-    cables = [55, 49, 63, 73, 83, 43, 53]
+    cables = [1, 2, 3, 4]
     costs = calculate(cables)
 
-    # Check if the costs list is not empty
-    if costs:
-        print("Min cost: ", costs[0])
-        print("Total costs: ", sum(costs))
-    else:
-        print("No costs calculated.")
+    print("Total costs: ", costs)
